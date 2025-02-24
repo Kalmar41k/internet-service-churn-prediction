@@ -1,0 +1,19 @@
+services:
+  app:
+    build: .
+    container_name: internet-service-churn-prediction  # Назва контейнера
+    ports:
+      - "8501:8501"  # Проброс порту для доступу до додатку Streamlit
+    volumes:
+      - .:/app  # Маппінг локальної директорії з директорією контейнера
+    environment:
+      - PYTHONUNBUFFERED=1  # Встановлює режим без буферизації виводу Python
+    command: streamlit run app.py  # Запуск додатку
+
+volumes:
+  app_data:  # Тому з даними, якщо потрібно
+    driver: local
+
+networks:
+  default:
+    driver: bridge
