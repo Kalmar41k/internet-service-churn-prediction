@@ -42,7 +42,7 @@ user_input = {} # Словник для збереження введених з
 for column in X_train.columns: # Беремо мінімальне та максимальне значення кожного стовпця
     min_val = float(X_train[column].min())
     max_val = float(X_train[column].max())
-    default_val = (min_val + max_val) / 2  # За замовчуванням середнє значення між мінімумом і максимумом
+    default_val = 0.0 # Значення за замовчуванням = 0
     user_input[column] = st.number_input( # Встановлюємо min та max межі для введення значень
         f"{column}", 
         min_value=min_val, 
