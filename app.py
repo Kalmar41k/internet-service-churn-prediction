@@ -38,13 +38,24 @@ selected_model = st.selectbox("Оберіть модель", list(models.keys())
 
 # Поля для введення значень ознак
 st.subheader("Введіть значення ознак") # Підзаголовок.
+
 user_input = {} # Словник для збереження введених значень.
-for column in X_train.columns: # Беремо мінімальне та максимальне значення кожного стовпця
+
+# Булевий Input для перших двух ознак
+for column in X_train.columns[:2]:
+    user_input[column] = st.selectbox(
+        f"{column}", 
+        options=[0, 1], 
+        format_func=lambda x: "Так" if x == 1 else "Ні"
+        )
+
+# Числовий Input для останніх ознак
+for column in X_train.columns[2:]:
     min_val = float(X_train[column].min())
     max_val = float(X_train[column].max())
     default_val = 0.0 # Значення за замовчуванням = 0
     user_input[column] = st.number_input( # Встановлюємо min та max межі для введення значень
-        f"{column}", 
+        f"{column}: min = {min_val}, max = {max_val}", # Друкуємо назви ознак з межами
         min_value=min_val, 
         max_value=max_val, 
         value=default_val
